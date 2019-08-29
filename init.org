@@ -513,15 +513,6 @@ If Emacs loads a plugin by default, instead of dynamically loading it at runtime
   (use-package all-the-icons-ivy
     :straight t)
    #+end_src
-** [[https://github.com/iqbalansari/emacs-emojify][iqbalansari/emacs-emojify: Display emojis in Emacs]]
-#+begin_src emacs-lisp :tangle yes
-(use-package emojify
-:straight t
-:config
-(add-hook 'after-init-hook #'global-emojify-mode)
-)
-
-#+end_src
 ** Frame
 *** Title
     #+begin_src emacs-lisp :tangle yes
@@ -1059,50 +1050,50 @@ elisp
 
 ** Fonts
    #+begin_src emacs-lisp :tangle yes
-      (defun set-icon-fonts (CODE-FONT-ALIST)
-         "Utility to associate many unicode points with specified fonts."
-         (--each CODE-FONT-ALIST
-           (-let (((font . codes) it))
-             (--each codes
-               (set-fontset-font t `(,it . ,it) font)))))
+     (defun set-icon-fonts (CODE-FONT-ALIST)
+        "Utility to associate many unicode points with specified fonts."
+        (--each CODE-FONT-ALIST
+          (-let (((font . codes) it))
+            (--each codes
+              (set-fontset-font t `(,it . ,it) font)))))
 
-       (defun load-default-fonts ()
-         ;;(setq doom-font (font-spec :family "Fantasque Sans Mono" :size 25))
-         ;;(setq default-frame-alist '((font . "Iosevka-14")))
+      (defun load-default-fonts ()
+        ;;(setq doom-font (font-spec :family "Fantasque Sans Mono" :size 25))
+        ;;(setq default-frame-alist '((font . "Iosevka-14")))
 
-         ;; (set-fontset-font "fontset-default" 'unicode "Fantasque Sans Mono-22")
-         ;; (set-face-font 'default "Fantasque Sans Mono-23")
-   
-
-
-         ;; The icons you see are not the correct icons until this is evaluated!
-         (set-icon-fonts
-          '(("fontawesome"
-             ;;                         
-             #xf07c #xf0c9 #xf0c4 #xf0cb #xf017 #xf101)
-
-            ("all-the-icons"
-             ;;    
-             #xe907 #xe928)
-
-            ("github-octicons"
-             ;;                        
-             #xf091 #xf059 #xf076 #xf075 #xf016 #xf00a)
-
-            ("Symbola"
-             ;; 𝕊    ⨂      ∅      ⟻    ⟼     ⊙      𝕋       𝔽
-             #x1d54a #x2a02 #x2205 #x27fb #x27fc #x2299 #x1d54b #x1d53d
-             ;; 𝔹    𝔇       𝔗
-             #x1d539 #x1d507 #x1d517))))
+        (set-fontset-font "fontset-default" 'unicode "Fantasque Sans Mono-22")
+        (set-face-font 'default "Fantasque Sans Mono-23")
 
 
-       (defun load-fonts (frame)
-         (select-frame frame)
-         (load-default-fonts))
 
-       (if (daemonp)
-           (add-hook 'after-make-frame-functions #'load-fonts)
-         (load-default-fonts))
+        ;; The icons you see are not the correct icons until this is evaluated!
+        (set-icon-fonts
+         '(("fontawesome"
+            ;;                         
+            #xf07c #xf0c9 #xf0c4 #xf0cb #xf017 #xf101)
+
+           ("all-the-icons"
+            ;;    
+            #xe907 #xe928)
+
+           ("github-octicons"
+            ;;                        
+            #xf091 #xf059 #xf076 #xf075 #xf016 #xf00a)
+
+           ("Symbola"
+            ;; 𝕊    ⨂      ∅      ⟻    ⟼     ⊙      𝕋       𝔽
+            #x1d54a #x2a02 #x2205 #x27fb #x27fc #x2299 #x1d54b #x1d53d
+            ;; 𝔹    𝔇       𝔗
+            #x1d539 #x1d507 #x1d517))))
+
+
+      (defun load-fonts (frame)
+        (select-frame frame)
+        (load-default-fonts))
+
+      (if (daemonp)
+          (add-hook 'after-make-frame-functions #'load-fonts)
+        (load-default-fonts))
    #+end_src
 
    #+RESULTS:
@@ -1651,26 +1642,6 @@ http://endlessparentheses.com/improving-projectile-with-extra-commands.html?sour
      (require 'anaphora)
 
    #+end_src
-*** [[https://github.com/alphapapa/prism.el][alphapapa/prism.el: Highlight Lisp forms according to depth]]
-#+begin_src emacs-lisp :tangle yes
-   (straight-use-package '(prism :type git
-                                 :host github
-                                 :repo "alphapapa/prism.el"))
-(require 'prism)
-(require 'solarized-theme)
-(prism-set-faces :num 24
-  :desaturations (list 20 40) :lightens (list 0 20 40)
-  :colors (solarized-with-color-variables 'dark
-	    (list red orange yellow green blue cyan violet magenta)))
-#+end_src
-*** Common lisp
-#+begin_src emacs-lisp :tangle yes
-(use-package slime
-:straight t
-:config
-(setq inferior-lisp-program "/usr/local/bin/sbcl")
-(setq slime-contribs '(slime-fancy)))
-#+end_src
 *** [[https://github.com/DogLooksGood/parinfer-mode][DogLooksGood/parinfer-mode: Parinfer for Emacs :)]]
 ** R
 - [[https://www.r-bloggers.com/using-r-with-emacs-and-ess/][Using R with Emacs and ESS | R-bloggers]]
@@ -2232,48 +2203,6 @@ See also: https://stackoverflow.com/questions/9547912/emacs-calendar-show-more-t
         (:name "sougou-shijin" :file ,(expand-file-name "pyim/shijin.pyim" user-emacs-directory))))
 
 #+end_src
-*** cnfont
-
-#+begin_src emacs-lisp :tangle "./setup/linux.el"
-   (use-package cnfonts
-    :straight t
-    :hook ((after-init . cnfonts-enable))
-    :config
-  (setq cnfonts-use-cache t)
-    (setq cnfonts-keep-frame-size nil)
-    (add-hook 'window-setup-hook (lambda ()
-                                   (setq cnfonts-keep-frame-size t)))
-    ;; Set profiles
-    (setq cnfonts-directory (concat no-littering-var-directory "cnfonts"))
-    (setq cnfonts-profiles '("program1" "program2" "program3" "org-mode" "read-book"))
-    (setq cnfonts--profiles-steps '(("program1" . 4)
-                                    ("program2" . 5)
-                                    ("program3" . 3)
-                                    ("org-mode" . 6)
-                                    ("read-book" . 8)))
-)
-
-#+end_src
-**** linux-font
-#+begin_src emacs-lisp :tangle "./setup/linux.el"
-
-(set-face-attribute
- 'default nil
- :font (font-spec :name "-PfEd-Fantasque Sans Mono-normal-italic-normal-*-*-*-*-*-m-0-iso10646-1"
-                  :weight 'normal
-                  :slant 'normal
-                  :size 16.0))
-(dolist (charset '(kana han symbol cjk-misc bopomofo))
-  (set-fontset-font
-   (frame-parameter nil 'font)
-   charset
-   (font-spec :name "-ADBO-Source Han Sans CN-normal-normal-normal-*-*-*-*-*-*-0-iso10646-1"
-              :weight 'normal
-              :slant 'normal
-              :size 20.5)))
- 
-
-#+END_SRC
 * Eshell
 - [[https://caiorss.github.io/Emacs-Elisp-Programming/Eshell.html][Eshell]]
 ** global
