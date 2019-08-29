@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: :and-call-fake ...
+# key: acf
+# condition: (doom-snippets-without-trigger (eq (char-before) ?:))
+# --
+and-call-fake ${1:#'fn}

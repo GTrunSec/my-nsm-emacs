@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: loop { ... }
+# key: loop
+# --
+loop { `(doom-snippets-format "%n%s%n")`$0 }

@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: .iter()
+# key: i
+# condition: (doom-snippets-without-trigger (eq (char-before) ?.))
+# --
+iter()

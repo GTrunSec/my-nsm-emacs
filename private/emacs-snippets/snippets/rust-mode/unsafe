@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: unsafe { ... }
+# key: un
+# --
+unsafe { `(doom-snippets-format "%n%s%n")`$0 }
