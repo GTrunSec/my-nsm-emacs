@@ -1,0 +1,3 @@
+[submodule "private/private/emacs-snippets"]
+	path = private/private/emacs-snippets
+	url = https://github.com/GTrunSec/emacs-snippets.git
